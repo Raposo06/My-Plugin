@@ -1,0 +1,45 @@
+{
+  "mcpServers": {
+    "phoenix": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@arizeai/phoenix-mcp@latest",
+        "--baseUrl",
+        "http://localhost:6006"
+      ]
+    }
+  },
+  "coworkUserFilesPath": "C:\\Users\\David Raposo\\Claude",
+  "preferences": {
+    "chromeExtensionEnabled": false,
+    "coworkScheduledTasksEnabled": true,
+    "ccdScheduledTasksEnabled": true,
+    "sidebarMode": "epitaxy",
+    "bypassPermissionsGateByAccount": {
+      "5de9db93-f1a6-45f1-a768-b684786f783c": false
+    },
+    "coworkWebSearchEnabled": true,
+    "coworkModelAutoFallbackByAccount": {
+      "5de9db93-f1a6-45f1-a768-b684786f783c": true
+    },
+    "remoteToolsDeviceName": "desktop-david",
+    "epitaxyPrefs": {
+      "starred-local-code-sessions": [],
+      "starred-cowork-spaces": [],
+      "starred-session-groups": [],
+      "dframe-local-slice": {
+        "pinnedOrder": [],
+        "customGroupAssignments": {},
+        "customGroupOrder": {}
+      },
+      "cc-landing-worktree-enabled": false,
+      "fastMode": false,
+      "epitaxy-folder-permission-mode.5de9db93-f1a6-45f1-a768-b684786f783c": {
+        "C:\\Users\\David Raposo\\Desktop\\David\\Personal Projects\\Portuguese-Legal-RAG-Bot": "acceptEdits"
+      },
+      "cc-landing-draft-permission-mode": "acceptEdits"
+    },
+    "coworkHipaaRestricted": false
+  }
+}

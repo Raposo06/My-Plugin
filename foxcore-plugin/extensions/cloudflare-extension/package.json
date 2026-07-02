@@ -1,0 +1,21 @@
+{
+  "name": "cloudflare-mcp",
+  "version": "1.0.0",
+  "description": "Read-only MCP server for inspecting a single Cloudflare zone: DNS records, zone/SSL settings, Tunnels, and Zero Trust Access.",
+  "main": "server/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server/index.js",
+    "inspect": "npx @modelcontextprotocol/inspector node server/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.29.0",
+    "dotenv": "^17.4.2",
+    "zod": "^3.25.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "author": "David Raposo"
+}

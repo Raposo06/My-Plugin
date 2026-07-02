@@ -1,0 +1,13 @@
+{
+  "name": "wikijs-mcp-extension",
+  "version": "0.1.0",
+  "description": "Wiki.js 2.x MCP server, packaged as a Claude Desktop extension.",
+  "type": "module",
+  "private": true,
+  "main": "server/index.js",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.10.0",
+    "dotenv": "^17.4.2",
+    "zod": "^3.23.0"
+  }
+}

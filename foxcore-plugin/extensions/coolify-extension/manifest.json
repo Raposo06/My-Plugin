@@ -1,0 +1,61 @@
+{
+  "manifest_version": "0.4",
+  "name": "coolify-mcp",
+  "display_name": "Coolify",
+  "version": "1.1.0",
+  "description": "Inspect a self-hosted Coolify instance: servers, projects, applications, databases, services, and health. Mostly read-only, with restart and redeploy actions.",
+  "long_description": "Gives Claude visibility into a self-hosted Coolify instance: servers, projects, applications, databases, and one-click services, plus recent application logs and an instance health check. Three narrow write actions are included — restart_application, restart_service, and trigger_deployment — all of which only re-run existing configuration (equivalent to the Restart/Deploy buttons in the Coolify UI). No config edits, no create/delete, no stop actions are exposed.",
+  "author": {
+    "name": "David Raposo"
+  },
+  "license": "MIT",
+  "keywords": ["coolify", "devops", "paas", "self-hosted", "infrastructure"],
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.js"],
+      "env": {
+        "COOLIFY_BASE_URL": "${user_config.coolify_base_url}",
+        "COOLIFY_API_TOKEN": "${user_config.coolify_api_token}"
+      }
+    }
+  },
+  "user_config": {
+    "coolify_base_url": {
+      "type": "string",
+      "title": "Coolify Base URL",
+      "description": "The URL of your Coolify instance, e.g. http://localhost:8000 or https://coolify.example.com (no trailing slash).",
+      "required": true
+    },
+    "coolify_api_token": {
+      "type": "string",
+      "title": "Coolify API Token",
+      "description": "API token generated in Coolify under Settings > API Tokens. Stored securely in your OS keychain.",
+      "required": true,
+      "sensitive": true
+    }
+  },
+  "tools": [
+    { "name": "list_servers", "description": "List all servers registered in this Coolify instance." },
+    { "name": "get_server", "description": "Get details and resource usage for a specific server." },
+    { "name": "list_projects", "description": "List all projects in this Coolify instance." },
+    { "name": "get_project", "description": "Get details for a specific project." },
+    { "name": "list_applications", "description": "List all applications across this Coolify instance." },
+    { "name": "get_application", "description": "Get details for a specific application." },
+    { "name": "get_application_logs", "description": "Get recent logs for a specific application." },
+    { "name": "restart_application", "description": "Restart an application with its existing configuration." },
+    { "name": "list_databases", "description": "List all databases managed by this Coolify instance." },
+    { "name": "list_services", "description": "List all one-click services deployed on this Coolify instance." },
+    { "name": "restart_service", "description": "Restart a one-click service with its existing configuration." },
+    { "name": "trigger_deployment", "description": "Trigger a new deployment for an application or service, redeploying its current configuration." },
+    { "name": "health_check", "description": "Check whether the Coolify instance is reachable and healthy." }
+  ],
+  "compatibility": {
+    "platforms": ["darwin", "win32"],
+    "runtimes": {
+      "node": ">=18"
+    }
+  }
+}

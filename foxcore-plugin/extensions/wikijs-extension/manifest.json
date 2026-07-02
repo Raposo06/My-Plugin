@@ -1,0 +1,54 @@
+{
+  "manifest_version": "0.4",
+  "name": "wikijs-mcp",
+  "display_name": "Wiki.js MCP",
+  "version": "0.1.0",
+  "description": "Manage a Wiki.js 2.x instance from Claude — read, search, create, update, and delete pages, plus assets.",
+  "author": {
+    "name": "David Raposo"
+  },
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.js"],
+      "env": {
+        "WIKIJS_URL": "${user_config.wikijs_url}",
+        "WIKIJS_API_TOKEN": "${user_config.wikijs_api_token}"
+      }
+    }
+  },
+  "tools": [
+    { "name": "list_pages", "description": "List pages ordered by title." },
+    { "name": "get_page", "description": "Fetch a page's full content by ID." },
+    { "name": "search_pages", "description": "Full-text search across pages." },
+    { "name": "create_page", "description": "Create a new page." },
+    { "name": "update_page", "description": "Update an existing page." },
+    { "name": "delete_page", "description": "Delete a page by ID." },
+    { "name": "list_assets", "description": "List assets in a folder." },
+    { "name": "upload_asset", "description": "Upload a file to the asset library." }
+  ],
+  "user_config": {
+    "wikijs_url": {
+      "type": "string",
+      "title": "Wiki.js URL",
+      "description": "Base URL of your Wiki.js instance, no trailing slash (e.g. https://wiki.example.com).",
+      "required": true
+    },
+    "wikijs_api_token": {
+      "type": "string",
+      "title": "API Token",
+      "description": "Wiki.js API token (Administration -> API Access) with read/write permissions.",
+      "sensitive": true,
+      "required": true
+    }
+  },
+  "compatibility": {
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  },
+  "keywords": ["wiki", "wikijs", "documentation"],
+  "license": "MIT"
+}

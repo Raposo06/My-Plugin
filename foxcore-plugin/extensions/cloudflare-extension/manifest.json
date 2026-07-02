@@ -1,0 +1,67 @@
+{
+  "manifest_version": "0.4",
+  "name": "cloudflare-mcp",
+  "display_name": "Cloudflare (Read-Only)",
+  "version": "1.0.0",
+  "description": "Inspect a single Cloudflare zone: DNS records, zone/SSL settings, Tunnels, and Zero Trust Access — read-only.",
+  "long_description": "Gives Claude read-only visibility into a single Cloudflare zone. Lists and inspects DNS records, zone settings (including SSL/TLS mode), Universal SSL settings, Cloudflare Tunnels and their ingress configuration, and Zero Trust Access applications and groups. No create, update, or delete actions are exposed — this extension cannot modify your Cloudflare configuration in any way.",
+  "author": {
+    "name": "David Raposo"
+  },
+  "license": "MIT",
+  "keywords": ["cloudflare", "dns", "tunnels", "zero-trust", "ssl", "self-hosted"],
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.js"],
+      "env": {
+        "CLOUDFLARE_API_TOKEN": "${user_config.cloudflare_api_token}",
+        "CLOUDFLARE_ZONE_NAME": "${user_config.cloudflare_zone_name}",
+        "CLOUDFLARE_ACCOUNT_ID": "${user_config.cloudflare_account_id}"
+      }
+    }
+  },
+  "user_config": {
+    "cloudflare_zone_name": {
+      "type": "string",
+      "title": "Cloudflare Zone (Domain) Name",
+      "description": "The domain this server inspects, e.g. foxcore.dev",
+      "required": true
+    },
+    "cloudflare_api_token": {
+      "type": "string",
+      "title": "Cloudflare API Token",
+      "description": "API token from Cloudflare dashboard > My Profile > API Tokens. Needs Zone:Read, DNS:Read, and (if using Tunnel/Access tools) Account:Read, Cloudflare Tunnel:Read, Access: Apps and Policies:Read. Stored securely in your OS keychain.",
+      "required": true,
+      "sensitive": true
+    },
+    "cloudflare_account_id": {
+      "type": "string",
+      "title": "Cloudflare Account ID",
+      "description": "Required only for Tunnel and Zero Trust Access tools. Found in the Cloudflare dashboard sidebar.",
+      "required": false
+    }
+  },
+  "tools": [
+    { "name": "verify_token", "description": "Verify the configured API token and check its status/scope." },
+    { "name": "get_account", "description": "Get account-level details." },
+    { "name": "get_zone", "description": "Get details for the configured zone." },
+    { "name": "get_zone_settings", "description": "Get all zone settings, including SSL mode." },
+    { "name": "get_ssl_universal_settings", "description": "Get Universal SSL settings for the zone." },
+    { "name": "list_dns_records", "description": "List DNS records for the zone, optionally filtered by type." },
+    { "name": "get_dns_record", "description": "Get details for a single DNS record by ID." },
+    { "name": "list_tunnels", "description": "List Cloudflare Tunnels on the account." },
+    { "name": "get_tunnel", "description": "Get details for a specific Tunnel." },
+    { "name": "get_tunnel_configuration", "description": "Get ingress configuration for a Tunnel." },
+    { "name": "list_access_applications", "description": "List Zero Trust Access applications." },
+    { "name": "list_access_groups", "description": "List Zero Trust Access groups." }
+  ],
+  "compatibility": {
+    "platforms": ["darwin", "win32"],
+    "runtimes": {
+      "node": ">=18"
+    }
+  }
+}

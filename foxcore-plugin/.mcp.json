@@ -1,0 +1,35 @@
+{
+  "mcpServers": {
+    "WikiJS": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/extensions/wikijs-extension/server/main.mjs"]
+    },
+    "Cloudflare": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/extensions/cloudflare-extension/server/main.mjs"]
+    },
+    "Coolify": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/extensions/coolify-extension/server/main.mjs"]
+    },
+    "n8n": {
+      "type": "http",
+      "url": "https://n8n.foxcore.dev/mcp-server/http",
+      "headers": {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5YWJlYWQ2YS1mZGExLTQyZjEtODgyNy05MTJmMThmOWZhZmEiLCJpc3MiOiJuOG4iLCJhdWQiOiJtY3Atc2VydmVyLWFwaSIsImp0aSI6IjAyYWZhYTdiLTA2YzktNDE1Yi05YmM4LTQxYTZhNzllYmI2YiIsImlhdCI6MTc4MjkwMzE2MX0.hZ-iN62SDdm6dbaAKEcUTcKgHNsQTJR4dY_Ptc5cj3w"
+      }
+    },
+    "Phoenix MCP": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@arizeai/phoenix-mcp@latest",
+        "--baseUrl",
+        "http://100.80.50.124:6006"
+      ]
+    },
+    "OpenRouter": {
+      "url": "https://mcp.openrouter.ai/mcp"
+    }
+  }
+}

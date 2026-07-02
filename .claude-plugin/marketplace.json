@@ -1,0 +1,13 @@
+{
+  "name": "foxcore",
+  "owner": {
+    "name": "David Raposo"
+  },
+  "plugins": [
+    {
+      "name": "foxcore",
+      "source": "./foxcore-plugin",
+      "description": "Fox Core tooling — Wiki.js, Cloudflare, and Coolify MCP servers plus the decision-logging, infrastructure-doc, grill-me, and kb-linter skills."
+    }
+  ]
+}
