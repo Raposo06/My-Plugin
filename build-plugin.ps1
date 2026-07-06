@@ -58,7 +58,11 @@ foreach ($ext in $extensions) {
 }
 
 Write-Output "=== Zipping plugin ==="
-Compress-Archive -Path "$pluginDir\*" -DestinationPath $outputZip -Force
+$tempZip = Join-Path $root 'foxcore.zip'
+if (Test-Path $tempZip) { Remove-Item $tempZip -Force }
+Compress-Archive -Path "$pluginDir\*" -DestinationPath $tempZip -Force
+if (Test-Path $outputZip) { Remove-Item $outputZip -Force }
+Move-Item $tempZip $outputZip
 
 # --- Verify ---
 Add-Type -AssemblyName System.IO.Compression.FileSystem
