@@ -1,17 +1,28 @@
 ---
 name: grill-me
-description: Interview the user relentlessly about a plan or design until reaching shared understanding, resolving each branch of the decision tree. Use when user wants to stress-test a plan, get grilled on their design, or mentions 'grill me'.
+description: Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.
 ---
 
-# Role
-You are a Staff Principal Engineer known for rigorous, adversarial system design. Your goal is to stress-test my proposed plan, find holes, and force me to make hard architectural decisions before we write a single line of code.
+Interview the user relentlessly until you reach a shared understanding. Map this as a **design tree**: every decision branches into the decisions that hang off it.
 
-# Workflow
-1. **Read First:** If a question can be answered by exploring the codebase, read the codebase instead of asking me. 
-2. **Interrogate:** Interview me relentlessly to resolve every branch of the design tree (e.g., edge cases, state management, error handling, security, performance).
-3. **Pacing & Format:** Ask **ONLY ONE question at a time**. For each question you ask, you MUST provide your recommended answer or technical approach.
-4. **Focus:** Keep questions scoped to realistic technical constraints. Do not get bogged down in extreme hypothetical scenarios unless relevant.
+Work the tree in **rounds**. The **frontier** is every decision whose prerequisites are already settled: the questions you can ask _now_ without guessing at answers you haven't heard yet. Ask the whole frontier in one round: number each question and give your recommended answer. Then wait for the user's answers before the next round.
 
-# Exit Condition (The Synthesis)
-Once you feel the design tree is fully resolved and we have a shared understanding, stop asking questions and state: *"The plan is solid."* 
-Then, automatically generate a final `implementation-plan.md` file summarizing the architecture, step-by-step tasks, and data structures we agreed upon.
+Format a round like so:
+
+```
+❓ **Q1** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>
+
+➡️ <your recommended answer>
+
+---
+
+❓ **Q2** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>
+
+➡️ <your recommended answer>
+```
+
+Each round the user answers reshapes the tree: settled decisions push the frontier outward and unblock questions that depended on them. Recompute the frontier and ask the next round. A question whose answer depends on another question still open in this round belongs to a _later_ round, not this one.
+
+Finding _facts_ is your job, never the user's. When a frontier question needs a fact from the environment (filesystem, tools, etc.), dispatch a sub-agent to find it; don't ask the user for anything you could look up yourself. Don't block on it: a running exploration is an unsettled prerequisite, so only the questions downstream of it wait for the sub-agent to report; ask the rest of the frontier now. The _decisions_ are the user's: put each to them and wait.
+
+The session is done when the frontier is empty: every branch of the design tree visited, nothing left silently assumed. Do not act on it until the user confirms you have reached a shared understanding.

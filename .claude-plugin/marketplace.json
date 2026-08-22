@@ -7,7 +7,7 @@
     {
       "name": "foxcore",
       "source": "./foxcore-plugin",
-      "description": "Fox Core tooling — Wiki.js, Cloudflare, and Coolify MCP servers plus the decision-logging, infrastructure-doc, grill-me, and kb-linter skills."
+      "description": "Fox Core tooling — Wiki.js, Cloudflare, and Coolify MCP servers plus grill-me, TDD, codebase-design, domain-modeling, docs-framework, architecture-review, code-quality-review, and unslop skills."
     }
   ]
 }

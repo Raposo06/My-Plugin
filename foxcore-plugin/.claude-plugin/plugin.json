@@ -1,9 +1,9 @@
 {
   "name": "foxcore",
   "version": "0.1.0",
-  "description": "Fox Core tooling — Wiki.js, Cloudflare, and Coolify MCP servers plus the decision-logging, infrastructure-doc, grill-me, and kb-linter skills.",
+  "description": "Fox Core tooling — Wiki.js, Cloudflare, and Coolify MCP servers plus grill-me, TDD, codebase-design, domain-modeling, docs-framework, architecture-review, code-quality-review, and unslop skills.",
   "author": {
     "name": "David Raposo"
   },
-  "keywords": ["foxcore", "wiki", "wikijs", "cloudflare", "coolify", "decisions"]
+  "keywords": ["foxcore", "wiki", "wikijs", "cloudflare", "coolify"]
 }
