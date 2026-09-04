@@ -1,8 +1,11 @@
 {
   "mcpServers": {
-    "WikiJS": {
-      "command": "node",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/extensions/wikijs-extension/server/main.mjs"]
+    "Obsidian": {
+      "type": "http",
+      "url": "http://localhost:27123/mcp",
+      "headers": {
+        "Authorization": "Bearer ${OBSIDIAN_MCP_TOKEN}"
+      }
     },
     "Cloudflare": {
       "command": "node",

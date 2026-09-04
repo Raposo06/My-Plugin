@@ -2,7 +2,7 @@
 
 A Claude Code plugin bundling David Raposo's self-hosted infrastructure tooling:
 
-- **`WikiJS` MCP server** — runs the bundled Node server in [`extensions/wikijs-extension`](extensions/wikijs-extension) over stdio (read/write pages, search, assets).
+- **`Obsidian` MCP server** — connects to the [MCP Server](https://community.obsidian.md/plugins/mcp-server) community plugin running inside Obsidian (Streamable HTTP, `localhost:27123`).
 - **`Cloudflare` MCP server** — read-only inspection of a Cloudflare zone (DNS, SSL, Tunnels, Zero Trust), from [`extensions/cloudflare-extension`](extensions/cloudflare-extension).
 - **`Coolify` MCP server** — read-only inspection of a Coolify instance (servers, apps, databases, services), from [`extensions/coolify-extension`](extensions/coolify-extension).
 - **`grill-me` skill** — adversarial design interview that stress-tests a plan before implementation.
@@ -22,12 +22,17 @@ from a per-extension `.env` file (loaded by the bundle via an absolute path, so 
 directory doesn't matter):
 
 ```
-extensions/wikijs-extension/.env      WIKIJS_URL, WIKIJS_API_TOKEN
 extensions/cloudflare-extension/.env  CLOUDFLARE_API_TOKEN, CLOUDFLARE_ZONE_NAME, CLOUDFLARE_ACCOUNT_ID
 extensions/coolify-extension/.env     COOLIFY_BASE_URL, COOLIFY_API_TOKEN
 ```
 
 Fill those in, then install/upload the plugin in Claude.
+
+The `Obsidian` server is different: it's not a bundled extension, it's an HTTP client for the
+[MCP Server](https://community.obsidian.md/plugins/mcp-server) community plugin, which must be
+installed and running inside Obsidian first (Settings → Community plugins → MCP Server →
+enable, note the port and token). `.mcp.json` reads the token from `${OBSIDIAN_MCP_TOKEN}`, a
+real environment variable (not a `.env` file) that must be set wherever Claude Code runs.
 
 ## Building & packaging
 

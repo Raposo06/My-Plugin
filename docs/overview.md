@@ -4,7 +4,7 @@
 > *meaningful* changes (architecture, stack, security model, major features, or
 > implemented/remaining status) — not on every commit. Last reviewed: 2026-08-22.
 
-A personal Claude Code plugin, plus the single-plugin marketplace that distributes it. It bundles self-hosted infrastructure MCP servers (Wiki.js, Cloudflare, Coolify) with a set of engineering-workflow skills, so the same tooling and working style follow David across every project.
+A personal Claude Code plugin, plus the single-plugin marketplace that distributes it. It bundles self-hosted infrastructure MCP servers (Obsidian, Cloudflare, Coolify) with a set of engineering-workflow skills, so the same tooling and working style follow David across every project.
 
 ## Index
 
@@ -41,8 +41,8 @@ Two structural constraints shape everything else, both covered in [decisions.md]
 | Plugin manifest | `foxcore-plugin/.claude-plugin/plugin.json` | name, version, description |
 | Marketplace manifest | `.claude-plugin/marketplace.json` | single entry pointing at `./foxcore-plugin` |
 | MCP config | `foxcore-plugin/.mcp.json` | 6 servers; local ones use `${CLAUDE_PLUGIN_ROOT}` |
-| Local MCP servers | Node, esbuild-bundled to `server/main.mjs` | Wiki.js, Cloudflare, Coolify |
-| Remote MCP servers | HTTP / npx | n8n, Phoenix, OpenRouter |
+| Local MCP servers | Node, esbuild-bundled to `server/main.mjs` | Cloudflare, Coolify |
+| Remote MCP servers | HTTP / npx | Obsidian, n8n, Phoenix, OpenRouter |
 | Skills | Markdown, `SKILL.md` + reference files | see below |
 | Build | `build-plugin.ps1` (PowerShell) | bundles, zips, self-verifies |
 

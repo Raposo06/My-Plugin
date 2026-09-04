@@ -14,6 +14,16 @@ last one matters most, because it tells you when to reopen the question.
 
 ---
 
+## 2026-09-03 — Drop WikiJS, switch to Obsidian for knowledge storage
+
+**Decided.** The `WikiJS` MCP server, its `extensions/wikijs-extension/` bundle, and every reference to it (`.mcp.json`, README, manifests, stack table) are removed. A new `Obsidian` server replaces it: an HTTP client to the community [MCP Server](https://community.obsidian.md/plugins/mcp-server) plugin running inside Obsidian (`localhost:27123/mcp`), not a bundled extension this repo builds.
+
+**Why.** Personal workflow moved from a self-hosted Wiki.js instance to a local Obsidian vault. No existing MCP server needed to be written for it — the community plugin already exposes read/write/search over Streamable HTTP, so this repo only needed a client entry, unlike WikiJS which required a hand-written bundled server (`wikijs-extension`).
+
+**What would reverse it.** Moving knowledge storage back to a server-hosted wiki, or the Obsidian MCP plugin proving unreliable enough that a custom extension becomes worth writing again.
+
+**Note.** The credential shape is deliberately different from every other server here: `${OBSIDIAN_MCP_TOKEN}` is a real environment variable expanded by Claude Code at `.mcp.json` load time, not a per-extension `.env` file. That's not an oversight, it's because Obsidian isn't a bundled extension — see [operations.md](operations.md).
+
 ## 2026-08-22 — Use one append-only decisions log, not numbered ADRs
 
 **Decided.** Project reasoning lives in a single `docs/decisions.md`, newest entry first. The `docs/adr/NNNN-slug.md` convention that arrived with the vendored `domain-modeling` skill was dropped, and that skill was rewritten to append here instead.

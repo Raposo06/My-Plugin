@@ -56,13 +56,13 @@ If that listing disagrees with `foxcore-plugin/skills/`, you are testing a stale
 
 **Fix:** point `.mcp.json` at `server/main.mjs` (the esbuild bundle), never `server/index.js` (the source). Both constraints together are why bundling is non-optional; see the 2026-07-02 entry in [decisions.md](decisions.md).
 
-### Only Phoenix connects; the other MCP servers are dead
+### Only Phoenix connects; Cloudflare and Coolify are dead
 
-**Symptom:** Phoenix MCP works, WikiJS / Cloudflare / Coolify all fail.
+**Symptom:** Phoenix MCP works, Cloudflare and Coolify both fail.
 
-**Cause:** Phoenix launches via `npx -y @arizeai/phoenix-mcp` and self-installs, so it works regardless of bundling. The other three are local bundles.
+**Cause:** Phoenix launches via `npx -y @arizeai/phoenix-mcp` and self-installs, so it works regardless of bundling. Cloudflare and Coolify are local esbuild bundles; Obsidian, n8n, and OpenRouter are plain HTTP clients with nothing to bundle.
 
-**Use it as a canary:** if *only* Phoenix connects, the problem is the node bundles, not your credentials or the plugin manifest.
+**Use it as a canary:** if *only* Phoenix connects and both local bundles are down, the problem is the node bundles, not your credentials or the plugin manifest.
 
 ### Skill refuses to run: "cannot be used with Skill tool due to disable-model-invocation"
 
@@ -91,14 +91,15 @@ After uploading, confirm the skills actually resolve by invoking one and checkin
 
 ## Data & state
 
-Credentials are per-machine and not in the repo. Each extension reads its own `.env`, loaded by absolute path so the working directory doesn't matter:
+Credentials are per-machine and not in the repo. Each bundled extension reads its own `.env`, loaded by absolute path so the working directory doesn't matter:
 
 ```
-extensions/wikijs-extension/.env      WIKIJS_URL, WIKIJS_API_TOKEN
 extensions/cloudflare-extension/.env  CLOUDFLARE_API_TOKEN, CLOUDFLARE_ZONE_NAME, CLOUDFLARE_ACCOUNT_ID
 extensions/coolify-extension/.env     COOLIFY_BASE_URL, COOLIFY_API_TOKEN
 ```
 
 `.env` is gitignored. Whether any given machine has these filled in is a runtime fact, not a repo fact: a fresh clone has none of them.
+
+The `Obsidian` server isn't a bundled extension, so it doesn't fit this pattern. Its token comes from `${OBSIDIAN_MCP_TOKEN}`, a real environment variable expanded by Claude Code when it loads `.mcp.json` — set it in the shell/OS environment, not a `.env` file. The token itself comes from the [MCP Server](https://community.obsidian.md/plugins/mcp-server) community plugin's settings inside Obsidian.
 
 **Exception, and it is a problem:** the n8n MCP server's bearer token is committed inline in `foxcore-plugin/.mcp.json` rather than read from `.env`. It ships inside every built `foxcore.plugin`. See the open item in [overview.md](overview.md).
